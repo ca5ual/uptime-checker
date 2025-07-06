@@ -49,5 +49,5 @@ jobs:
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --restart-policy Never \
           --cpu 1 \
-          --memory 1.0
---os-type Linux
+          --memory 1.0 \
+          --os-type Linux
