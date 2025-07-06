@@ -50,4 +50,4 @@ jobs:
           --restart-policy Never \
           --cpu 1 \
           --memory 1.0
-	  --os-type Linux
+--os-type Linux
