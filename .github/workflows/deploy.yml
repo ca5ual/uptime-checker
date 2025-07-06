@@ -25,19 +25,20 @@ jobs:
         docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/uptime-checker:latest .
 
     - name: Login to ACR
-      run: echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+      run: |
+        echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
     - name: Push Docker image to ACR
       run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/uptime-checker:latest
 
-    - name: Remove old ACI container (if exists)
+    - name: Remove old container instance (if exists)
       run: |
         az container delete \
-          --name uptime-checker \
           --resource-group uptime-checker-rg \
+          --name uptime-checker \
           --yes || true
 
-    - name: Deploy to Azure Container Instances
+    - name: Deploy new container instance
       run: |
         az container create \
           --resource-group uptime-checker-rg \
