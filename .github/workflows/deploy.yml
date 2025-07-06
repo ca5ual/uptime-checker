@@ -34,13 +34,13 @@ jobs:
       run: |
         az container delete \
           --name uptime-checker \
-          --resource-group uptime-rg \
+          --resource-group uptime-checker-rg \
           --yes || true
 
     - name: Deploy to Azure Container Instances
       run: |
         az container create \
-          --resource-group uptime-rg \
+          --resource-group uptime-checker-rg \
           --name uptime-checker \
           --image ${{ secrets.ACR_LOGIN_SERVER }}/uptime-checker:latest \
           --registry-login-server ${{ secrets.ACR_LOGIN_SERVER }} \
